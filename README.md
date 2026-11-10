@@ -33,6 +33,8 @@ NEXT_PUBLIC_KOAMISHIN_REDIRECT_URI=http://localhost:3000/auth/callback
 
 `app/auth/callback/page.tsx` renders `<AuthenticateWithRedirectCallback afterSignInUrl="/dashboard" />` to complete the PKCE code exchange and sync the session cookie.
 
+The template also serves this page at `/api/auth/callback`. Set `NEXT_PUBLIC_KOAMISHIN_REDIRECT_URI` to the exact callback URL registered in the Portal, including its path and port. Both URLs must match, and the chosen path must have a callback page in your app. Restart the Next.js server after changing `.env.local`, then start a new sign-in.
+
 ### 6. Run the project
 
 ```bash
