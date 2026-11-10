@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Koamishin Next.js Quickstart Template
 
-## Getting Started
+Authentication starter for **Next.js App Router** powered by `@koamishin/auth-js`, modeled on Clerk's manual setup pattern (steps 1–7) using OAuth 2.0 S256 PKCE and offline-verifiable RS256 session tokens.
 
-First, run the development server:
+## Setup Steps
+
+### 1. Install dependencies
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Configure `.env.local`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Copy `.env.example` to `.env.local` and fill in the credentials from your Koamishin Portal application setup guide:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```dotenv
+NEXT_PUBLIC_KOAMISHIN_PORTAL_URL=http://localhost:8000
+NEXT_PUBLIC_KOAMISHIN_ENVIRONMENT=development
+NEXT_PUBLIC_KOAMISHIN_PUBLISHABLE_KEY=pk_test_your_publishable_key
+NEXT_PUBLIC_KOAMISHIN_REDIRECT_URI=http://localhost:3000/auth/callback
+```
 
-## Learn More
+### 3. Proxy / Middleware (`proxy.ts`)
 
-To learn more about Next.js, take a look at the following resources:
+`proxy.ts` runs `koamishinMiddleware()` and `createRouteMatcher()` from `@koamishin/auth-js/nextjs/server` to verify the RS256 `__koamishin_session` cookie offline against `${portalUrl}/oauth/jwks` and protect `/dashboard(.*)`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4. Root Layout (`app/layout.tsx`)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`app/layout.tsx` wraps the application in `<KoamishinProvider>` and renders `<Show when="signed-out">` (`<SignInButton />`, `<SignUpButton>`) and `<Show when="signed-in">` (`<UserButton />`) inside React's `<Suspense>` boundary for Next.js Cache Components compatibility.
 
-## Deploy on Vercel
+### 5. Callback Route (`app/auth/callback/page.tsx`)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`app/auth/callback/page.tsx` renders `<AuthenticateWithRedirectCallback afterSignInUrl="/dashboard" />` to complete the PKCE code exchange and sync the session cookie.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 6. Run the project
+
+```bash
+bun run dev
+```
+
+### 7. Create your first user
+
+Open [http://localhost:3000](http://localhost:3000) and click **Sign Up** to create your first user on the Koamishin Portal and land on the protected `/dashboard` route.
+
