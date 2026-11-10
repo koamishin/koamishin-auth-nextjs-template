@@ -5,7 +5,7 @@
     "": {
       "name": "koamishin-nextjs",
       "dependencies": {
-        "@koamishin/auth-js": "github:koamishin/auth-js",
+        "@koamishin/auth-js": "github:koamishin/auth-js#v1.3.0",
         "next": "16.4.6",
         "react": "19.3.0",
         "react-dom": "19.3.0",
@@ -155,7 +155,7 @@
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.31", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="],
 
-    "@koamishin/auth-js": ["@koamishin/auth-js@github:koamishin/auth-js#ccbd6c6", {}, "koamishin-auth-js-ccbd6c6", "sha512-rMUY4W39rf3zlp8f1W00TN8vKhDI91tBQTbTddUAZbv/vqsx84BXKZaHhhezLNlYr6n9gxqwcxkVwfIJ9ollbg=="],
+    "@koamishin/auth-js": ["@koamishin/auth-js@github:koamishin/auth-js#31dcbd1", {}, "koamishin-auth-js-31dcbd1", "sha512-jnC8l40K3RUZ3HtnfgTzeo5b/3AmR0Rakcf83eH6nLlZtC9uBAVkTcB7M2/IeNfAY7b1MKgvPPQUyAED0FainQ=="],
 
     "@next/env": ["@next/env@16.4.6", "", {}, "sha512-SunBjJ6t+oBtecS3dTjdVuMhUogP5wD/vrGL5EVuQYM1iS4O5ilL51HkiJ3sPjMzRHiCChvr4dbaSJbR7F3lxA=="],
 
